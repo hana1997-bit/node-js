@@ -4,7 +4,7 @@ const options={
     userNewUrlParser : true,
     useUnifiedTopology: true
 }
-mongoose.connect('mongodb://localhost:27017/challanges',options).then((connet)=>{
+mongoose.connect("mongodb://localhost:27017/challanges",options).then((connet)=>{
     console.log("=> connect to database successfully !");
 }).catch(error => {
     console.log("=> connect to database with errors!");
