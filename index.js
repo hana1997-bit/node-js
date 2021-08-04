@@ -19,9 +19,13 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
     res.json({ message: "welcome to muy rest API" });
 });
-// toto api
+// todo api
 const todoaApi = require('./routes/todosAPI');
-app.use('/api/v1',todoaApi)
+const userApi = require('./routes/userApi');
+
+app.use('/api/v1',todoaApi);
+app.use('/api/v1',userApi);
+
 
 app.listen(port, () => {
     console.log(`application listening at http://localhost: ${port}`);
