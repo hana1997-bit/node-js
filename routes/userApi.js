@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 module.exports = router;
+
 //use model
 const User = require('../models/userSchema');
-
 // get all user
 router.get('/users', async (req, res) => {
     try {
@@ -62,3 +62,4 @@ router.delete('/users/:id', async (req, res) => {
 
 
 });
+
