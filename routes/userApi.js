@@ -16,7 +16,7 @@ router.get('/users', async (req, res) => {
 });
 
 //get user by id
-router.get('/users:id', async (req, res) => {
+router.get('/users/:id', async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         res.json(user);
@@ -39,7 +39,7 @@ router.post('/users', async (req, res) => {
 
 
 //update user
-router.put('/users:id', async (req, res) => {
+router.put('/users/:id', async (req, res) => {
     try {
         const users = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(user);
@@ -51,7 +51,7 @@ router.put('/users:id', async (req, res) => {
 });
 
 //delete user
-router.delete('/users:id', async (req, res) => {
+router.delete('/users/:id', async (req, res) => {
     try {
         const users = await User.findByIdAndRemove(req.params.id);
         res.json({ message: " user has been deleted successfully" });

@@ -18,7 +18,7 @@ router.get('/todos', async (req, res) => {
 });
 
 //get todo by id
-router.get('/todos:id', async (req, res) => {
+router.get('/todos/:id', async (req, res) => {
     try {
         const todo = await Todo.findById(req.params.id);
         res.json(todo);
@@ -41,7 +41,7 @@ router.post('/todos', async (req, res) => {
 
 
 //update todo
-router.put('/todos:id', async (req, res) => {
+router.put('/todos/:id', async (req, res) => {
     try {
         const todos = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(todo);
@@ -53,7 +53,7 @@ router.put('/todos:id', async (req, res) => {
 });
 
 //delete todo
-router.delete('/todos:id', async (req, res) => {
+router.delete('/todos/:id', async (req, res) => {
     try {
         const todos = await Todo.findByIdAndRemove(req.params.id);
         res.json({ message: " todo has been deleted successfully" });

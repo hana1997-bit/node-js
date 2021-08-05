@@ -26,6 +26,11 @@ const userApi = require('./routes/userApi');
 app.use('/api/v1',todoaApi);
 app.use('/api/v1',userApi);
 
+module.exports = {
+    todoApi = require('./routes/todosAPI'),
+    userApi = require('./routes/userApi')
+
+}
 
 app.listen(port, () => {
     console.log(`application listening at http://localhost: ${port}`);
