@@ -9,7 +9,7 @@ const app = express();
 const port = 3000;
 //connect to database
 const connect = require('./Database/connect');
-
+const User= require('./models/userSchema')
 //configuration morgan
 
 app.use(morgan('dev'));
