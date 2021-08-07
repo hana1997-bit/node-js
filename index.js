@@ -22,9 +22,11 @@ app.get('/', (req, res) => {
 // todo api
 const todoaApi = require('./routes/todosAPI');
 const userApi = require('./routes/userApi');
-
+const mailApi=require('./routes/mailApi')
 app.use('/api/v1',todoaApi);
 app.use('/api/v1',userApi);
+// app.use('/api/v1',mailApi);
+
 
 
 app.listen(port, () => {
