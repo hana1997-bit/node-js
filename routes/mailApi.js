@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 
 
   // create reusable transporter object using the default SMTP transport
- const Transporter = nodemailer.createTransport({
+  const Transporter = nodemailer.createTransport({
     service:'gmail',
     host: "smtp.ethereal.email",
     port: 587,
