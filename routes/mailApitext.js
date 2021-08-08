@@ -5,8 +5,6 @@ const { route } = require("./todosAPI");
 const router = express.Router();
 
 router.post('/sendmailtext', async (req, res) => {
-
-
   try {
     const Transporter = nodemailer.createTransport({
       service: 'gmail',
