@@ -19,7 +19,6 @@ const nodemailer = require("nodemailer");
     from: 'hanaidoudi88@gmail.com', // sender address
     to: "idoudihana06@gmail.com", // list of receivers
     subject: "Hello ✔", // Subject line
-    // text: "Hello world?" // plain text body
     html : "<b>bonjour</b>", // html body
   };
   Transporter.sendMail(mailoption , (err,info)=>{
