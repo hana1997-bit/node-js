@@ -9,7 +9,7 @@ const app = express();
 const port = 3000;
 //connect to database
 const connect = require('./Database/connect');
-const User= require('./models/userSchema')
+// const User= require('./models/userSchema')
 //configuration morgan
 
 app.use(morgan('dev'));
@@ -22,10 +22,17 @@ app.get('/', (req, res) => {
 // todo api
 const todoaApi = require('./routes/todosAPI');
 const userApi = require('./routes/userApi');
-const mailApi=require('./routes/mailApihtml')
+const mailApi=require('./routes/mailApihtml');
+const mailApiV2 = require ('./routes/mailApiV2');
+
 app.use('/api/v1',todoaApi);
 app.use('/api/v1',userApi);
+app.use('/api/v1', mailApiV2);
 app.use('/api/v1',mailApi);
+
+// image
+const imageApi= require('./routes/imagApi');
+app.use('/api/v1',imageApi)
 
 
 
