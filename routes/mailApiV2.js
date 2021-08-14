@@ -4,17 +4,11 @@ const nodemailer = require("nodemailer");
 const path = require('path');
 const fs = require('fs');
 const ejs = require('ejs');
-
+const transporter = require('../utils/transporter')
 router.post('/sendmailV2', async (req, res) => {
     try {
         //  1.0 create transporter
-        const Transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.MAIL, // generated ethereal user
-                pass: process.env.PASSWORD, // generated ethereal password
-            }
-        });
+        
         // 2.0 create mail option
         // 2.1 read template path
            const template_path = path.resolve('./mail_template' , 'register_notification.html');
