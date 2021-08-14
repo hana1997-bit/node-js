@@ -29,15 +29,22 @@ const todoaApi = require('./routes/todosAPI');
 const userApi = require('./routes/userApi');
 const mailApi=require('./routes/mailApihtml');
 const mailApiV2 = require ('./routes/mailApiV2');
+const cornApi = require('./routes/cornApi');
 
 app.use('/api/v1',todoaApi);
 app.use('/api/v1',userApi);
 app.use('/api/v1', mailApiV2);
 app.use('/api/v1',mailApi);
-
+app.use('/api/v1',cornApi);
+app.use(express.static(__dirname + './public'));
+app.set('views','./views');
+app.set('view engine','ejs');
+app.get('/image', (req, res) => {
+   res.render('index',{title:'hy', message :'hello'})
+})
 // image
-const imageApi= require('./routes/imagApi');
-app.use('/api/v1',imageApi)
+// const imageApi= require('./routes/imagApi');
+// app.use('/api/v1',imageApi)
 
 
 
