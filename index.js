@@ -2,6 +2,11 @@ const express = require('express');
 
 const morgan = require('morgan');
 
+const dotenv = require('dotenv');
+// configuration de dotenv
+
+dotenv.config();
+
 //  bodyparser config 
 const bodyParser = require('body-parser');
 const app = express();
