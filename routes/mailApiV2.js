@@ -58,9 +58,6 @@ router.post('/sendmailV2', async (req, res) => {
                 content: 'aGVsbG8gd29ybGQh',
                 encoding: 'base64'
             },
-            {   // data uri as an attachment
-                path: 'data:text/plain;base64,aGVsbG8gd29ybGQ='
-            },
             {
                 // use pregenerated MIME node
                 raw: 'Content-Type: text/plain\r\n' +
