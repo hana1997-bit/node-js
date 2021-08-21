@@ -16,20 +16,23 @@ const my_storage = multer.diskStorage({
     console.log(file_extention)
     cb(null, file.fieldname + '-' + uniqueSuffix)
   },
- 
+
   limits: {
     fileSize: 1024 * 1024
   }
 });
- fileFilter=(req, file, cb) => {
+
+// file filter function 
+const fileFilterFunction = (req, file, cb) => {
   const file_extention = path.extname(file.originalname);
-  if (file_extention != '.png' && file_extention != '.jpg' && file_extention != '.gif' && file_extention != '.jpeg') {
+  const allowedExtentions = [".jpg" ,".jpeg", ".png", ".gif"]
+  if (!allowedExtentions.includes(file_extention)) {
     return cb(new Error('Only images are allowed'))
   }
   cb(null, true)
 };
 // 2.0 create upload
-const upload = multer({ storage: my_storage,fileFilter:fileFilter })
+const upload = multer({ storage: my_storage, fileFilter: fileFilterFunction })
 
 router.post('/upload-image', upload.single('file'), (req, res) => {
   res.json({ message: 'image uploaded successfully' });
