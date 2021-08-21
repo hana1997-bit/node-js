@@ -5,47 +5,42 @@ const router = express.Router();
 
 
 
-// chargement du fichier d'env
-require('dotenv').config();
-// accès au variables
-process.env.ACCESS_TOKEN_SECRET;
+
 // generate token
-function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1800s' });
-}
+// function generateAccessToken(user) {
+//     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1800s' });
+// }
 // refresh token 
-function generateRefreshToken(user) {
-    return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1y' });
-}
+// function generateRefreshToken(user) {
+//     return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1y' });
+// }
 
-const user = {
-    id: 42,
-    name: 'Jean Bon',
-    email: 'jeanbon@gmail.com',
-    admin: true,
-};
+const User = require('../models/userSchema')
 // login
-router.post('/api/login', (req, res) => {
+router.post('/api/login', async (req, res) => {
+    try {
+        // TODO: fetch le user depuis la db basé sur l'email passé en paramètre
+        const user = await User.findOne({ email: req.body.email, password: req.body.password });
+        if (!user) {
+            res.status(401).json({ message: 'invalid credentials' });
+        }
+        //    console.log(user);
+        const tokenData = {
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName
+        };
+        const accessToken = jwt.sign(tokenData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION });
+        const refreshToken = jwt.sign(tokenData, process.env.REFRESH_TOKEN_SECRET, { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION });
 
-    // TODO: fetch le user depuis la db basé sur l'email passé en paramètre
-    if (req.body.email !== user.email) {
-        res.status(401).send('invalid credentials');
-        return;
+        res.json({
+            accessToken,
+            refreshToken,
+        });
+    } catch (err) {
+        console.log(err);
+        res.statuts(500).json({ message: 'internal server error' });
     }
-    // TODO: check que le mot de passe du user est correct
-    if (req.body.password !== 'cuillere') {
-        res.status(401).send('invalid credentials');
-        return;
-    }
-
-    const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
-
-    res.send({
-        accessToken,
-        refreshToken,
-    });
-
 });
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization']
@@ -80,15 +75,15 @@ router.post('/api/refreshToken', (req, res) => {
         // TODO: Check en base que l'user est toujours existant/autorisé à utiliser la plateforme
         delete user.iat;
         delete user.exp;
-        const refreshedToken = generateAccessToken(user);
+        const refreshedToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1800s' });
         res.send({
             accessToken: refreshedToken,
         });
     });
 });
-const accessToken = generateAccessToken(user);
-const refreshToken = generateRefreshToken(user);
-console.log('accessToken', accessToken);
-console.log('refreshToken', refreshToken);
+// const accessToken = generateAccessToken(user);
+// const refreshToken = generateRefreshToken(user);
+// console.log('accessToken', accessToken);
+// console.log('refreshToken', refreshToken);
 
 module.exports = router;
