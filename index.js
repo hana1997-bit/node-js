@@ -22,7 +22,7 @@ app.use(morgan('dev'));
 // bodyparser application /json
 // app.use(bodyParser.json());
 app.use(express.json()); // nouvelle  méthde de body parser
-
+app.use(express.urlencoded({ extended: true }));
 // static folder config with express
 app.use('/public', express.static('public'));
 
@@ -45,6 +45,7 @@ const mailApi=require('./routes/mailApihtml');
 const mailApiV2 = require ('./routes/mailApiV2');
 const imageApi= require('./routes/imagApi');
 const cornApi = require('./routes/cornApi');
+const jwtApi = require('./routes/jwtApi');
 
 app.use('/api/v1',todoaApi);
 app.use('/api/v1',userApi);
@@ -52,6 +53,7 @@ app.use('/api/v1', mailApiV2);
 app.use('/api/v1',mailApi);
 app.use('/api/v1',imageApi)
 app.use('/api/v1',cornApi);
+app.use('/api/v1',jwtApi);
 
 
 
